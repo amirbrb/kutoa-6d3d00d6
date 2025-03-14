@@ -1,0 +1,276 @@
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-secondary);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  padding-top: 90px;
+  padding-bottom: var(--space-6);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+  animation: fadeIn var(--transition-normal);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.actionCard {
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
+  animation: slideUp var(--transition-normal);
+}
+
+.actionCardContent {
+  padding: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.actionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+
+.actionText {
+  color: var(--color-muted);
+  margin-bottom: var(--space-5);
+  max-width: 500px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-emergency);
+  color: white;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.actionButton:hover {
+  background-color: #e62e23;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 59, 48, 0.2);
+}
+
+.requestsSection {
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+  animation: slideUp var(--transition-normal);
+  animation-delay: 0.1s;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.requestCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.requestCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.requestHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+
+.requestType {
+  font-weight: 600;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.pendingBadge {
+  background-color: rgba(253, 176, 34, 0.1);
+  color: #fd9a02;
+}
+
+.activeBadge {
+  background-color: rgba(255, 59, 48, 0.1);
+  color: var(--color-emergency);
+}
+
+.completedBadge {
+  background-color: rgba(52, 199, 89, 0.1);
+  color: var(--color-success);
+}
+
+.cancelledBadge {
+  background-color: rgba(142, 142, 147, 0.1);
+  color: var(--color-muted);
+}
+
+.requestContent {
+  margin-bottom: var(--space-3);
+}
+
+.requestLocation, .requestTime, .requestDescription {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: 0.95rem;
+}
+
+.requestDescription {
+  padding-left: var(--space-5);
+  color: var(--color-muted);
+}
+
+.requestTime {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.requestActions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.requestDetailsButton {
+  padding: var(--space-2) var(--space-4);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.requestDetailsButton:hover {
+  background-color: var(--color-secondary);
+}
+
+.requestCancelButton {
+  padding: var(--space-2) var(--space-4);
+  background-color: transparent;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.requestCancelButton:hover {
+  background-color: rgba(255, 59, 48, 0.1);
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  color: var(--color-muted);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.noRequests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.noRequestsIcon {
+  color: var(--color-success);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 80px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .actionCardContent {
+    padding: var(--space-5);
+  }
+  
+  .requestsSection {
+    padding: var(--space-4);
+  }
+}

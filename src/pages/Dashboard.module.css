@@ -83,7 +83,13 @@
   box-shadow: 0 4px 10px rgba(255, 59, 48, 0.2);
 }
 
-.requestsSection {
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.requestsSection, .nearbyEventsSection {
   background-color: var(--color-background);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -102,6 +108,18 @@
 .sectionTitle {
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+.viewAllButton {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.viewAllButton:hover {
+  text-decoration: underline;
 }
 
 .requestsList {
@@ -220,6 +238,153 @@
   background-color: rgba(255, 59, 48, 0.1);
 }
 
+/* Events styling */
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.eventCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.eventCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.eventHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.eventType {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.medicalEvent {
+  background-color: rgba(248, 113, 113, 0.1);
+  color: var(--color-emergency);
+}
+
+.donationEvent {
+  background-color: rgba(132, 204, 22, 0.1);
+  color: var(--color-success);
+}
+
+.volunteerEvent {
+  background-color: rgba(107, 155, 209, 0.1);
+  color: var(--color-accent);
+}
+
+.otherEvent {
+  background-color: rgba(148, 163, 184, 0.1);
+  color: var(--color-muted);
+}
+
+.eventDistance {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.eventTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.eventLocation, .eventTime, .eventCreator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.eventFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.eventParticipants {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.joinEventButton {
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.joinEventButton:hover {
+  background-color: #5a8abf;
+  transform: translateY(-1px);
+}
+
+.noEvents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.noEvents svg {
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+.createEventButton {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.createEventButton:hover {
+  background-color: #5a8abf;
+}
+
 .loading {
   display: flex;
   flex-direction: column;
@@ -270,7 +435,11 @@
     padding: var(--space-5);
   }
   
-  .requestsSection {
+  .requestsSection, .nearbyEventsSection {
     padding: var(--space-4);
+  }
+  
+  .dashboardGrid {
+    grid-template-columns: 1fr;
   }
 }

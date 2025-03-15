@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AlertTriangle, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, XCircle, Users, MapPin } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
 import styles from './Dashboard.module.css';
 
@@ -14,10 +14,23 @@ interface EmergencyRequest {
   description?: string;
 }
 
+interface NearbyEvent {
+  id: string;
+  title: string;
+  location: string;
+  distance: string;
+  createdBy: string;
+  time: Date;
+  participants: number;
+  type: 'medical' | 'donation' | 'volunteer' | 'other';
+}
+
 const Dashboard = () => {
   const [user, setUser] = useState<{ email: string; name?: string } | null>(null);
   const [requests, setRequests] = useState<EmergencyRequest[]>([]);
+  const [nearbyEvents, setNearbyEvents] = useState<NearbyEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
   useEffect(() => {
     // Check if user is logged in
@@ -61,6 +74,45 @@ const Dashboard = () => {
       setRequests(mockRequests);
       setIsLoading(false);
     }, 1000);
+
+    // Fetch nearby events created by other users
+    setTimeout(() => {
+      const mockNearbyEvents: NearbyEvent[] = [
+        {
+          id: 'ev-123',
+          title: 'Community Blood Drive',
+          location: 'Anytown Community Center',
+          distance: '0.5 miles away',
+          createdBy: 'Sarah Johnson',
+          time: new Date(Date.now() + 2 * 24 * 60 * 60000), // 2 days from now
+          participants: 15,
+          type: 'medical'
+        },
+        {
+          id: 'ev-456',
+          title: 'Food Distribution',
+          location: 'Somewhere Park',
+          distance: '1.2 miles away',
+          createdBy: 'Michael Chen',
+          time: new Date(Date.now() + 7 * 24 * 60 * 60000), // 7 days from now
+          participants: 8,
+          type: 'donation'
+        },
+        {
+          id: 'ev-789',
+          title: 'Neighborhood Cleanup',
+          location: 'Nowhere Beach',
+          distance: '0.8 miles away',
+          createdBy: 'Elena Rodriguez',
+          time: new Date(Date.now() + 3 * 24 * 60 * 60000), // 3 days from now
+          participants: 12,
+          type: 'volunteer'
+        }
+      ];
+      
+      setNearbyEvents(mockNearbyEvents);
+      setIsLoadingEvents(false);
+    }, 1500);
   }, []);
 
   const handleLogout = () => {
@@ -98,6 +150,19 @@ const Dashboard = () => {
     }
   };
 
+  const getEventTypeClass = (type: string) => {
+    switch (type) {
+      case 'medical':
+        return styles.medicalEvent;
+      case 'donation':
+        return styles.donationEvent;
+      case 'volunteer':
+        return styles.volunteerEvent;
+      default:
+        return styles.otherEvent;
+    }
+  };
+
   const formatDate = (date: Date) => {
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -122,6 +187,17 @@ const Dashboard = () => {
     }
     
     return date.toLocaleDateString();
+  };
+
+  const formatUpcomingDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = { 
+      weekday: 'short', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return date.toLocaleDateString('en-US', options);
   };
 
   if (!user) {
@@ -154,64 +230,127 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className={styles.requestsSection}>
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Your Requests</h2>
+          <div className={styles.dashboardGrid}>
+            <div className={styles.requestsSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>Your Requests</h2>
+              </div>
+              
+              {isLoading ? (
+                <div className={styles.loading}>
+                  <span className={styles.spinner}></span>
+                  <p>Loading your requests...</p>
+                </div>
+              ) : requests.length > 0 ? (
+                <div className={styles.requestsList}>
+                  {requests.map((request) => (
+                    <div key={request.id} className={styles.requestCard}>
+                      <div className={styles.requestHeader}>
+                        <span className={styles.requestType}>{request.type}</span>
+                        <span className={`${styles.statusBadge} ${getStatusBadgeClass(request.status)}`}>
+                          {getStatusIcon(request.status)}
+                          {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
+                        </span>
+                      </div>
+                      <div className={styles.requestContent}>
+                        <div className={styles.requestLocation}>
+                          <MapPin size={16} />
+                          {request.location}
+                        </div>
+                        {request.description && (
+                          <div className={styles.requestDescription}>
+                            {request.description}
+                          </div>
+                        )}
+                        <div className={styles.requestTime}>
+                          <Clock size={16} />
+                          {formatDate(request.createdAt)}
+                        </div>
+                      </div>
+                      <div className={styles.requestActions}>
+                        <button className={styles.requestDetailsButton}>
+                          View Details
+                        </button>
+                        {request.status === 'active' && (
+                          <button className={styles.requestCancelButton}>
+                            Cancel Request
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.noRequests}>
+                  <div className={styles.noRequestsIcon}>
+                    <CheckCircle size={32} />
+                  </div>
+                  <h3>No Emergency Requests</h3>
+                  <p>You haven't made any emergency requests yet.</p>
+                </div>
+              )}
             </div>
             
-            {isLoading ? (
-              <div className={styles.loading}>
-                <span className={styles.spinner}></span>
-                <p>Loading your requests...</p>
+            <div className={styles.nearbyEventsSection}>
+              <div className={styles.sectionHeader}>
+                <h2 className={styles.sectionTitle}>Events Near You</h2>
+                <button className={styles.viewAllButton}>View All</button>
               </div>
-            ) : requests.length > 0 ? (
-              <div className={styles.requestsList}>
-                {requests.map((request) => (
-                  <div key={request.id} className={styles.requestCard}>
-                    <div className={styles.requestHeader}>
-                      <span className={styles.requestType}>{request.type}</span>
-                      <span className={`${styles.statusBadge} ${getStatusBadgeClass(request.status)}`}>
-                        {getStatusIcon(request.status)}
-                        {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
-                      </span>
-                    </div>
-                    <div className={styles.requestContent}>
-                      <div className={styles.requestLocation}>
-                        <MapPin size={16} />
-                        {request.location}
-                      </div>
-                      {request.description && (
-                        <div className={styles.requestDescription}>
-                          {request.description}
-                        </div>
-                      )}
-                      <div className={styles.requestTime}>
-                        <Clock size={16} />
-                        {formatDate(request.createdAt)}
-                      </div>
-                    </div>
-                    <div className={styles.requestActions}>
-                      <button className={styles.requestDetailsButton}>
-                        View Details
-                      </button>
-                      {request.status === 'active' && (
-                        <button className={styles.requestCancelButton}>
-                          Cancel Request
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className={styles.noRequests}>
-                <div className={styles.noRequestsIcon}>
-                  <CheckCircle size={32} />
+              
+              {isLoadingEvents ? (
+                <div className={styles.loading}>
+                  <span className={styles.spinner}></span>
+                  <p>Finding events near you...</p>
                 </div>
-                <h3>No Emergency Requests</h3>
-                <p>You haven't made any emergency requests yet.</p>
-              </div>
-            )}
+              ) : nearbyEvents.length > 0 ? (
+                <div className={styles.eventsList}>
+                  {nearbyEvents.map((event) => (
+                    <div key={event.id} className={styles.eventCard}>
+                      <div className={styles.eventHeader}>
+                        <span className={`${styles.eventType} ${getEventTypeClass(event.type)}`}>
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </span>
+                        <span className={styles.eventDistance}>
+                          {event.distance}
+                        </span>
+                      </div>
+                      <h3 className={styles.eventTitle}>{event.title}</h3>
+                      <div className={styles.eventDetails}>
+                        <div className={styles.eventLocation}>
+                          <MapPin size={14} />
+                          {event.location}
+                        </div>
+                        <div className={styles.eventTime}>
+                          <Clock size={14} />
+                          {formatUpcomingDate(event.time)}
+                        </div>
+                        <div className={styles.eventCreator}>
+                          <span>By {event.createdBy}</span>
+                        </div>
+                      </div>
+                      <div className={styles.eventFooter}>
+                        <div className={styles.eventParticipants}>
+                          <Users size={14} />
+                          {event.participants} participants
+                        </div>
+                        <button className={styles.joinEventButton}>
+                          Join Event
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className={styles.noEvents}>
+                  <MapPin size={32} />
+                  <h3>No Nearby Events</h3>
+                  <p>There are no community events near you right now.</p>
+                  <button className={styles.createEventButton}>
+                    Create an Event
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

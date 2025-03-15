@@ -7,6 +7,9 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import RequestHelp from "./pages/RequestHelp";
 import NotFound from "./pages/NotFound";
+import NavigationBar from "./components/NavigationBar";
+import { Toaster } from "./components/ui/toaster";
+import { useToast } from "./components/ui/use-toast";
 
 // AuthCheck component for protected routes
 const AuthCheck = ({ children }: { children: React.ReactNode }) => {
@@ -32,25 +35,61 @@ const AuthCheck = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+// Main App component with routing
+const AppContent = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    navigate('/login');
+    
+    toast({
+      title: "Logged out successfully",
+      description: "You have been logged out of your account.",
+    });
+  };
+
+  return (
+    <>
+      <NavigationBar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      
+      <div className="page-container">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={
+            <AuthCheck>
+              <Dashboard />
+            </AuthCheck>
+          } />
+          <Route path="/request-help" element={
+            <AuthCheck>
+              <RequestHelp />
+            </AuthCheck>
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      
+      <Toaster />
+    </>
+  );
+};
+
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={
-          <AuthCheck>
-            <Dashboard />
-          </AuthCheck>
-        } />
-        <Route path="/request-help" element={
-          <AuthCheck>
-            <RequestHelp />
-          </AuthCheck>
-        } />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AppContent />
     </BrowserRouter>
   );
 };

@@ -1,0 +1,94 @@
+
+.profileButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.profileButton:hover {
+  transform: scale(1.05);
+}
+
+.profileButton:active {
+  transform: scale(0.95);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-accent);
+}
+
+.avatarFallback {
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: 600;
+}
+
+.content {
+  width: 250px;
+  padding: var(--space-3);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-2) var(--space-3) var(--space-2);
+}
+
+.menuAvatar {
+  width: 40px;
+  height: 40px;
+}
+
+.userDetails {
+  margin-left: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userEmail {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.menuItem:hover {
+  background-color: var(--color-secondary);
+}
+
+.menuItem svg {
+  color: var(--color-accent);
+}

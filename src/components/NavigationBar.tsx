@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, LogOut, User } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import styles from './NavigationBar.module.css';
+import UserSubmenu from './UserSubmenu';
 
 interface NavigationBarProps {
   isLoggedIn: boolean;
@@ -67,7 +68,6 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
                 </li>
                 <li className={styles.mobileOnly}>
                   <button onClick={onLogout} className={styles.navLink}>
-                    <LogOut size={18} />
                     <span>Logout</span>
                   </button>
                 </li>
@@ -97,12 +97,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
 
         {isLoggedIn && (
           <div className={styles.userActions}>
-            <button className={styles.userButton}>
-              <User size={18} />
-            </button>
-            <button onClick={onLogout} className={styles.logoutButton}>
-              <LogOut size={18} />
-            </button>
+            <UserSubmenu onLogout={onLogout} />
           </div>
         )}
 

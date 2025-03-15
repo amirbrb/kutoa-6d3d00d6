@@ -26,6 +26,7 @@ const UserProfile = () => {
   const [hobbiesInput, setHobbiesInput] = useState('');
 
   useEffect(() => {
+    // Fetch user data from localStorage
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
       window.location.href = '/login';

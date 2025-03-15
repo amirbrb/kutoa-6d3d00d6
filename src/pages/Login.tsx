@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
+import NavigationBar from '../components/NavigationBar';
 import styles from './Auth.module.css';
 import { useToast } from '../components/ui/use-toast';
 
@@ -13,9 +14,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | undefined>();
 
   const handleLogin = async (data: { email: string; password: string; name?: string }) => {
     setIsLoading(true);
+    setError(undefined);
     
     try {
       // Mock login logic - replace with real authentication
@@ -43,44 +46,45 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         
         navigate('/dashboard');
       } else {
-        toast({
-          variant: "destructive",
-          title: "Login failed",
-          description: "Please enter valid credentials",
-        });
+        setError("Please enter valid credentials");
       }
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: "An error occurred during login",
-      });
+      setError("An error occurred during login");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.formContainer}>
-        <h1 className={styles.title}>Welcome Back</h1>
-        <p className={styles.subtitle}>Log in to access emergency services</p>
-        
-        <AuthForm 
-          type="login"
-          onSubmit={handleLogin}
-          isLoading={isLoading}
-          onGoogleSignIn={() => {}}
-        />
-        
-        <div className={styles.linkText}>
-          <span>Don't have an account?</span>
-          <Link to="/signup" className={styles.link}>Sign up</Link>
-        </div>
-      </div>
+    <div className={styles.page}>
+      <NavigationBar isLoggedIn={false} onLogout={() => {}} />
       
-      <div className={styles.imageContainer}>
-        <div className={styles.overlay}></div>
+      <div className={styles.container}>
+        <div className={styles.formContainer}>
+          <AuthForm 
+            type="login"
+            onSubmit={handleLogin}
+            isLoading={isLoading}
+            error={error}
+            onGoogleSignIn={() => {
+              // Implement Google sign-in
+              console.log("Google sign-in clicked");
+            }}
+          />
+          
+          <div className={styles.switchLink}>
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </div>
+        </div>
+        
+        <div className={styles.infoPanel}>
+          <div className={styles.infoPanelContent}>
+            <h2 className={styles.infoPanelTitle}>Welcome Back</h2>
+            <p className={styles.infoPanelText}>
+              Log in to access emergency services and request assistance when needed.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

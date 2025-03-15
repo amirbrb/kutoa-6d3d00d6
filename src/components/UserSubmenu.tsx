@@ -55,6 +55,10 @@ const UserSubmenu: React.FC<UserSubmenuProps> = ({ onLogout }) => {
             </div>
           </div>
           <DropdownMenuSeparator />
+          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate('/profile')}>
+            <User size={18} />
+            <span>View Profile</span>
+          </DropdownMenuItem>
           <DialogTrigger asChild>
             <DropdownMenuItem className={styles.menuItem}>
               <User size={18} />

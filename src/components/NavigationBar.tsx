@@ -33,8 +33,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
       <div className={styles.container}>
         <div className={styles.logoContainer}>
           <Link to="/" className={styles.logo}>
-            <span>Emergency</span>
-            <span className={styles.accent}>Response</span>
+            <span>Kutoa</span>
           </Link>
         </div>
 

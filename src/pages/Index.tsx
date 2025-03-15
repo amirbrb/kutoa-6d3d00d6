@@ -1,14 +1,20 @@
 
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, Shield, MapPin, Clock } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
 import styles from './Index.module.css';
 
-const Index = () => {
+interface IndexProps {
+  isLoggedIn: boolean;
+  onLogout: () => void;
+}
+
+const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
+
+
   return (
     <div className={styles.page}>
-      <NavigationBar isLoggedIn={false} onLogout={() => {}} />
+      <NavigationBar isLoggedIn={isLoggedIn} onLogout={onLogout} />
       
       <section className={styles.hero}>
         <div className={styles.container}>
@@ -95,11 +101,10 @@ const Index = () => {
         <div className={styles.container}>
           <div className={styles.footerContent}>
             <div className={styles.footerLogo}>
-              <span>Emergency</span>
-              <span className={styles.accent}>Response</span>
+              <span>Kutoa</span>
             </div>
             <p className={styles.footerText}>
-              © {new Date().getFullYear()} Emergency Response App. All rights reserved.
+              © {new Date().getFullYear()} Kutoa. All rights reserved.
             </p>
           </div>
         </div>

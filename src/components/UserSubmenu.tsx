@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, Settings, Image, LogOut, Heart, Shield } from 'lucide-react';
+import { User, Settings, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import {
@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { Dialog, DialogTrigger } from './ui/dialog';
+import { Dialog } from './ui/dialog';
 import UserProfileDialog from './UserProfileDialog';
 import styles from './UserSubmenu.module.css';
 
@@ -59,27 +59,9 @@ const UserSubmenu: React.FC<UserSubmenuProps> = ({ onLogout }) => {
             <User size={18} />
             <span>View Profile</span>
           </DropdownMenuItem>
-          <DialogTrigger asChild>
-            <DropdownMenuItem className={styles.menuItem}>
-              <User size={18} />
-              <span>Edit Profile</span>
-            </DropdownMenuItem>
-          </DialogTrigger>
           <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate('/settings')}>
             <Settings size={18} />
             <span>Settings</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className={styles.menuItem}>
-            <Image size={18} />
-            <span>Change Picture</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className={styles.menuItem}>
-            <Heart size={18} />
-            <span>My Hobbies</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className={styles.menuItem}>
-            <Shield size={18} />
-            <span>Emergency Contacts</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className={styles.menuItem} onSelect={onLogout}>

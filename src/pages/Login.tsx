@@ -37,7 +37,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         
         toast({
           title: "Login successful",
-          description: "Welcome back to Emergency Response!",
+          description: "Welcome back to Kutoa!",
         });
         
         if (onLoginSuccess) {

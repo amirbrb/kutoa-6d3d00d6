@@ -65,7 +65,7 @@ const AppContent = () => {
       
       <div className="page-container">
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Index isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
           <Route path="/login" element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={

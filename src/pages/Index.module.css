@@ -14,6 +14,7 @@
 
 /* Hero Section */
 .hero {
+  width: 100%;
   padding-top: 130px;
   padding-bottom: var(--space-8);
   position: relative;
@@ -38,10 +39,12 @@
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
   background-color: var(--color-secondary);
-  font-size: 0.8rem;
+  font-size: 30px;
   font-weight: 500;
   margin-bottom: var(--space-4);
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: slideUp 0.5s ease-out forwards;
+  animation-delay: 0.1s;
+  opacity: 0;
 }
 
 .title {
@@ -115,6 +118,7 @@
 }
 
 .imageContainer {
+  width: 100%;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -308,3 +312,25 @@
     font-size: 2rem;
   }
 }
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

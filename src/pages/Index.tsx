@@ -32,9 +32,9 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
               providing fast response when every second counts.
             </p>
             <div className={styles.actions}>
-              <Link to="/signup" className={styles.primaryButton}>
+              {!isLoggedIn && <Link to="/signup" className={styles.primaryButton}>
                 Sign Up Now
-              </Link>
+              </Link>}
               <Link to="/request-help" className={styles.secondaryButton}>
                 Request Help
               </Link>

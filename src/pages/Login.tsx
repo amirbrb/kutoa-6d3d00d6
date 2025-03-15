@@ -14,18 +14,18 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleLogin = async (data: { email: string; password: string; name?: string }) => {
     setIsLoading(true);
     
     try {
       // Mock login logic - replace with real authentication
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      if (email && password) {
+      if (data.email && data.password) {
         // Store basic user data in localStorage
         const userData = {
-          email,
-          name: email.split('@')[0],
+          email: data.email,
+          name: data.email.split('@')[0],
           avatar: '',
           hobbies: []
         };
@@ -70,6 +70,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
           type="login"
           onSubmit={handleLogin}
           isLoading={isLoading}
+          onGoogleSignIn={() => {}}
         />
         
         <div className={styles.linkText}>

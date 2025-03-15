@@ -1,7 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AlertTriangle, Clock, CheckCircle, XCircle, Users, MapPin } from 'lucide-react';
+import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
 import styles from './Dashboard.module.css';
 
@@ -33,7 +33,6 @@ const Dashboard = () => {
   const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
       window.location.href = '/login';
@@ -42,8 +41,6 @@ const Dashboard = () => {
     
     setUser(JSON.parse(storedUser));
     
-    // Fetch user's emergency requests
-    // This is a mock implementation
     setTimeout(() => {
       const mockRequests: EmergencyRequest[] = [
         {
@@ -51,7 +48,7 @@ const Dashboard = () => {
           type: 'Medical',
           status: 'active',
           location: '123 Main St, Anytown',
-          createdAt: new Date(Date.now() - 30 * 60000), // 30 minutes ago
+          createdAt: new Date(Date.now() - 30 * 60000),
           description: 'Severe allergic reaction'
         },
         {
@@ -59,14 +56,14 @@ const Dashboard = () => {
           type: 'Fire',
           status: 'completed',
           location: '456 Oak Ave, Somewhere',
-          createdAt: new Date(Date.now() - 24 * 60 * 60000), // 1 day ago
+          createdAt: new Date(Date.now() - 24 * 60 * 60000),
         },
         {
           id: '54321',
           type: 'Police',
           status: 'cancelled',
           location: '789 Pine Rd, Nowhere',
-          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60000), // 3 days ago
+          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60000),
           description: 'Suspicious activity'
         }
       ];
@@ -75,7 +72,6 @@ const Dashboard = () => {
       setIsLoading(false);
     }, 1000);
 
-    // Fetch nearby events created by other users
     setTimeout(() => {
       const mockNearbyEvents: NearbyEvent[] = [
         {
@@ -84,7 +80,7 @@ const Dashboard = () => {
           location: 'Anytown Community Center',
           distance: '0.5 miles away',
           createdBy: 'Sarah Johnson',
-          time: new Date(Date.now() + 2 * 24 * 60 * 60000), // 2 days from now
+          time: new Date(Date.now() + 2 * 24 * 60 * 60000),
           participants: 15,
           type: 'medical'
         },
@@ -94,7 +90,7 @@ const Dashboard = () => {
           location: 'Somewhere Park',
           distance: '1.2 miles away',
           createdBy: 'Michael Chen',
-          time: new Date(Date.now() + 7 * 24 * 60 * 60000), // 7 days from now
+          time: new Date(Date.now() + 7 * 24 * 60 * 60000),
           participants: 8,
           type: 'donation'
         },
@@ -104,7 +100,7 @@ const Dashboard = () => {
           location: 'Nowhere Beach',
           distance: '0.8 miles away',
           createdBy: 'Elena Rodriguez',
-          time: new Date(Date.now() + 3 * 24 * 60 * 60000), // 3 days from now
+          time: new Date(Date.now() + 3 * 24 * 60 * 60000),
           participants: 12,
           type: 'volunteer'
         }
@@ -201,7 +197,7 @@ const Dashboard = () => {
   };
 
   if (!user) {
-    return null; // Will redirect to login
+    return null;
   }
 
   return (
@@ -356,24 +352,6 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-// Add the missing MapPin component
-const MapPin = (props: { size: number }) => {
-  return <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={props.size} 
-    height={props.size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-  >
-    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-    <circle cx="12" cy="10" r="3"/>
-  </svg>;
 };
 
 export default Dashboard;

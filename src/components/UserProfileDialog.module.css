@@ -6,6 +6,7 @@
 .dialogTitle {
   font-size: 1.5rem;
   font-weight: 600;
+  color: var(--color-primary);
 }
 
 .form {
@@ -31,6 +32,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 2px solid var(--color-accent);
 }
 
 .avatarImage {
@@ -58,6 +60,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  color: var(--color-accent);
 }
 
 .uploadHint {
@@ -74,6 +77,7 @@
 .textarea {
   min-height: 100px;
   resize: vertical;
+  border-color: var(--color-border);
 }
 
 .fieldHint {
@@ -98,4 +102,5 @@
 
 .cancelButton {
   border: 1px solid var(--color-border);
+  color: var(--color-muted);
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
 import { MapPin } from 'lucide-react';
@@ -221,7 +221,7 @@ const Dashboard = () => {
               </p>
               <Link to="/request-help" className={styles.actionButton}>
                 <AlertTriangle size={18} />
-                Request Emergency Help
+                Request Help
               </Link>
             </div>
           </div>

@@ -83,7 +83,7 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
         </div>
       </section>
       
-      <section className={styles.cta}>
+      {!isLoggedIn && <section className={styles.cta}>
         <div className={styles.container}>
           <div className={styles.ctaContent}>
             <h2 className={styles.ctaTitle}>Ready for Any Emergency</h2>
@@ -95,7 +95,7 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
             </Link>
           </div>
         </div>
-      </section>
+      </section>}
       
       <footer className={styles.footer}>
         <div className={styles.container}>

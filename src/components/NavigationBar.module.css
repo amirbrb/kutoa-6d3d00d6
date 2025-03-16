@@ -137,6 +137,7 @@
     transform: translateX(100%);
     transition: transform var(--transition-normal);
     z-index: 1000;
+    padding-top: 80px;
   }
 
   .nav.open {
@@ -146,9 +147,19 @@
   .navList {
     flex-direction: column;
     align-items: flex-start;
-    padding: 80px var(--space-5) var(--space-5);
+    padding: 0 var(--space-5) var(--space-5);
     gap: var(--space-5);
     height: auto;
+    width: 100%;
+  }
+
+  .navList li {
+    width: 100%;
+  }
+
+  .navLink {
+    width: 100%;
+    padding: var(--space-3) var(--space-3);
   }
 
   .userActions {

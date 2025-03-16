@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import styles from './NavigationBar.module.css';
 import UserSubmenu from './UserSubmenu';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface NavigationBarProps {
   isLoggedIn: boolean;
@@ -14,6 +15,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,11 +67,31 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
                     Request Help
                   </Link>
                 </li>
-                <li className={styles.mobileOnly}>
-                  <button onClick={onLogout} className={styles.navLink}>
-                    <span>Logout</span>
-                  </button>
-                </li>
+                {isMobile && (
+                  <>
+                    <li>
+                      <Link 
+                        to="/profile" 
+                        className={`${styles.navLink} ${location.pathname === '/profile' ? styles.active : ''}`}
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link 
+                        to="/settings" 
+                        className={`${styles.navLink} ${location.pathname === '/settings' ? styles.active : ''}`}
+                      >
+                        Settings
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={onLogout} className={styles.navLink}>
+                        <span>Logout</span>
+                      </button>
+                    </li>
+                  </>
+                )}
               </>
             ) : (
               <>
@@ -94,7 +116,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
           </ul>
         </nav>
 
-        {isLoggedIn && (
+        {isLoggedIn && !isMobile && (
           <div className={styles.userActions}>
             <UserSubmenu onLogout={onLogout} />
           </div>

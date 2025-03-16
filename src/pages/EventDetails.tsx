@@ -105,11 +105,16 @@ const EventDetails = () => {
   const goBack = () => {
     navigate('/dashboard');
   };
+  
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-secondary">
-        <NavigationBar isLoggedIn={true} />
+        <NavigationBar isLoggedIn={true} onLogout={handleLogout} />
         <div className="container mx-auto px-4 pt-20">
           <div className="flex justify-center items-center min-h-[60vh]">
             <div className="w-6 h-6 border-2 border-t-primary rounded-full animate-spin"></div>
@@ -123,7 +128,7 @@ const EventDetails = () => {
   if (!event) {
     return (
       <div className="min-h-screen bg-secondary">
-        <NavigationBar isLoggedIn={true} />
+        <NavigationBar isLoggedIn={true} onLogout={handleLogout} />
         <div className="container mx-auto px-4 pt-20">
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
             <h2 className="text-xl font-semibold">Event Not Found</h2>
@@ -139,7 +144,7 @@ const EventDetails = () => {
 
   return (
     <div className="min-h-screen bg-secondary">
-      <NavigationBar isLoggedIn={true} />
+      <NavigationBar isLoggedIn={true} onLogout={handleLogout} />
       <div className="container mx-auto px-4 pt-20 pb-12">
         <Button 
           variant="ghost" 

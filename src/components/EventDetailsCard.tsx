@@ -49,13 +49,13 @@ const EventDetailsCard = ({
   const getEventTypeClass = (type: string) => {
     switch (type) {
       case 'medical':
-        return styles.medicalEvent;
+        return "text-red-600 bg-red-50";
       case 'donation':
-        return styles.donationEvent;
+        return "text-green-600 bg-green-50";
       case 'volunteer':
-        return styles.volunteerEvent;
+        return "text-blue-600 bg-blue-50";
       default:
-        return styles.otherEvent;
+        return "text-gray-600 bg-gray-50";
     }
   };
 
@@ -70,7 +70,7 @@ const EventDetailsCard = ({
     >
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
-          <span className={`${getEventTypeClass(type)} eventType`}>
+          <span className={`${getEventTypeClass(type)} px-2 py-1 rounded-full text-xs font-medium`}>
             {type.charAt(0).toUpperCase() + type.slice(1)}
           </span>
           {distance && (

@@ -7,7 +7,6 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import RequestHelp from "./pages/RequestHelp";
 import UserProfile from "./pages/UserProfile";
-import EventDetails from "./pages/EventDetails";
 import NotFound from "./pages/NotFound";
 import NavigationBar from "./components/NavigationBar";
 import { Toaster } from "./components/ui/toaster";
@@ -72,11 +71,6 @@ const AppContent = () => {
           <Route path="/dashboard" element={
             <AuthCheck>
               <Dashboard />
-            </AuthCheck>
-          } />
-          <Route path="/events/:id" element={
-            <AuthCheck>
-              <EventDetails />
             </AuthCheck>
           } />
           <Route path="/request-help" element={

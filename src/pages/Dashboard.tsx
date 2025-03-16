@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
 import { MapPin } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
-import EventDetailsCard from '../components/EventDetailsCard';
 import styles from './Dashboard.module.css';
 
 interface EmergencyRequest {
@@ -21,15 +20,13 @@ interface NearbyEvent {
   location: string;
   distance: string;
   createdBy: string;
-  createdById: string;
   time: Date;
   participants: number;
   type: 'medical' | 'donation' | 'volunteer' | 'other';
-  description?: string;
 }
 
 const Dashboard = () => {
-  const [user, setUser] = useState<{ email: string; name?: string; id?: string } | null>(null);
+  const [user, setUser] = useState<{ email: string; name?: string } | null>(null);
   const [requests, setRequests] = useState<EmergencyRequest[]>([]);
   const [nearbyEvents, setNearbyEvents] = useState<NearbyEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -76,7 +73,6 @@ const Dashboard = () => {
     }, 1000);
 
     setTimeout(() => {
-      const userId = JSON.parse(storedUser).id || 'user-123';
       const mockNearbyEvents: NearbyEvent[] = [
         {
           id: 'ev-123',
@@ -84,11 +80,9 @@ const Dashboard = () => {
           location: 'Anytown Community Center',
           distance: '0.5 miles away',
           createdBy: 'Sarah Johnson',
-          createdById: 'user-456',
           time: new Date(Date.now() + 2 * 24 * 60 * 60000),
           participants: 15,
-          type: 'medical',
-          description: 'Join us for a community blood drive. All blood types needed. Light refreshments will be provided for donors.'
+          type: 'medical'
         },
         {
           id: 'ev-456',
@@ -96,23 +90,19 @@ const Dashboard = () => {
           location: 'Somewhere Park',
           distance: '1.2 miles away',
           createdBy: 'Michael Chen',
-          createdById: 'user-789',
           time: new Date(Date.now() + 7 * 24 * 60 * 60000),
           participants: 8,
-          type: 'donation',
-          description: 'Help distribute food to those in need in our community. Non-perishable items and fresh produce will be available.'
+          type: 'donation'
         },
         {
           id: 'ev-789',
           title: 'Neighborhood Cleanup',
           location: 'Nowhere Beach',
           distance: '0.8 miles away',
-          createdBy: JSON.parse(storedUser).name || JSON.parse(storedUser).email,
-          createdById: userId,
+          createdBy: 'Elena Rodriguez',
           time: new Date(Date.now() + 3 * 24 * 60 * 60000),
           participants: 12,
-          type: 'volunteer',
-          description: 'Let\'s clean our beautiful beach! Bring gloves if you have them. Trash bags and tools will be provided.'
+          type: 'volunteer'
         }
       ];
       
@@ -124,22 +114,6 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     window.location.href = '/';
-  };
-
-  const handleJoinEvent = (eventId: string) => {
-    console.log(`Joining event: ${eventId}`);
-    // In a real app, this would make an API call
-    setNearbyEvents(events => 
-      events.map(event => 
-        event.id === eventId ? {...event, participants: event.participants + 1} : event
-      )
-    );
-  };
-
-  const handleCancelEvent = (eventId: string) => {
-    console.log(`Canceling event: ${eventId}`);
-    // In a real app, this would make an API call
-    setNearbyEvents(events => events.filter(event => event.id !== eventId));
   };
 
   const getStatusBadgeClass = (status: string) => {
@@ -327,22 +301,39 @@ const Dashboard = () => {
               ) : nearbyEvents.length > 0 ? (
                 <div className={styles.eventsList}>
                   {nearbyEvents.map((event) => (
-                    <EventDetailsCard
-                      key={event.id}
-                      id={event.id}
-                      title={event.title}
-                      location={event.location}
-                      distance={event.distance}
-                      createdBy={event.createdBy}
-                      createdById={event.createdById}
-                      time={event.time}
-                      participants={event.participants}
-                      type={event.type}
-                      description={event.description}
-                      onJoin={() => handleJoinEvent(event.id)}
-                      onCancel={() => handleCancelEvent(event.id)}
-                      isUserEvent={event.createdById === user.id}
-                    />
+                    <div key={event.id} className={styles.eventCard}>
+                      <div className={styles.eventHeader}>
+                        <span className={`${styles.eventType} ${getEventTypeClass(event.type)}`}>
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </span>
+                        <span className={styles.eventDistance}>
+                          {event.distance}
+                        </span>
+                      </div>
+                      <h3 className={styles.eventTitle}>{event.title}</h3>
+                      <div className={styles.eventDetails}>
+                        <div className={styles.eventLocation}>
+                          <MapPin size={14} />
+                          {event.location}
+                        </div>
+                        <div className={styles.eventTime}>
+                          <Clock size={14} />
+                          {formatUpcomingDate(event.time)}
+                        </div>
+                        <div className={styles.eventCreator}>
+                          <span>By {event.createdBy}</span>
+                        </div>
+                      </div>
+                      <div className={styles.eventFooter}>
+                        <div className={styles.eventParticipants}>
+                          <Users size={14} />
+                          {event.participants} participants
+                        </div>
+                        <button className={styles.joinEventButton}>
+                          Join Event
+                        </button>
+                      </div>
+                    </div>
                   ))}
                 </div>
               ) : (

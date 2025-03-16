@@ -118,7 +118,7 @@ const Dashboard = () => {
   };
 
   const handleEventClick = (eventId: string) => {
-    localStorage.setItem('eventId', eventId);
+    console.log('eventId', eventId);
     navigate(`/events/${eventId}`);
   };
 

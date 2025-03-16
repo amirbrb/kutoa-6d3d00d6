@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
 import { MapPin } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
@@ -31,6 +31,7 @@ const Dashboard = () => {
   const [nearbyEvents, setNearbyEvents] = useState<NearbyEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -114,6 +115,10 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     window.location.href = '/';
+  };
+
+  const handleEventClick = (eventId: string) => {
+    navigate(`/events/${eventId}`);
   };
 
   const getStatusBadgeClass = (status: string) => {
@@ -301,7 +306,12 @@ const Dashboard = () => {
               ) : nearbyEvents.length > 0 ? (
                 <div className={styles.eventsList}>
                   {nearbyEvents.map((event) => (
-                    <div key={event.id} className={styles.eventCard}>
+                    <div 
+                      key={event.id} 
+                      className={styles.eventCard}
+                      onClick={() => handleEventClick(event.id)}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <div className={styles.eventHeader}>
                         <span className={`${styles.eventType} ${getEventTypeClass(event.type)}`}>
                           {event.type.charAt(0).toUpperCase() + event.type.slice(1)}

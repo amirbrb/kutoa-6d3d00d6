@@ -46,7 +46,7 @@ const EventDetails = () => {
         time: new Date(Date.now() + 2 * 24 * 60 * 60000),
         participants: 15,
         type: 'medical',
-        description: 'Join us for this important community blood drive. We need all blood types, especially O negative. Refreshments will be provided for all donors. Please bring ID and wear comfortable clothing. The whole process takes about an hour, and you'll be helping to save lives in our community.'
+        description: 'Join us for this important community blood drive. We need all blood types, especially O negative. Refreshments will be provided for all donors. Please bring ID and wear comfortable clothing. The whole process takes about an hour, and youll be helping to save lives in our community.'
       };
       setEvent(mockEvent);
       setIsLoading(false);

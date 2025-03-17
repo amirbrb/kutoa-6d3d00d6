@@ -2,10 +2,12 @@
 import React, { useState } from 'react';
 import { Mail, Lock, AtSign, Eye, EyeOff } from 'lucide-react';
 import styles from './AuthForm.module.css';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import MediaUpload from './MediaUpload';
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onSubmit: (data: { email: string; password: string; name?: string }) => void;
+  onSubmit: (data: { email: string; password: string; name?: string; profilePicture?: File }) => void;
   onGoogleSignIn: () => void;
   isLoading: boolean;
   error?: string;
@@ -22,15 +24,25 @@ const AuthForm: React.FC<AuthFormProps> = ({
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [profilePicture, setProfilePicture] = useState<File[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (type === 'signup') {
-      onSubmit({ email, password, name });
+      onSubmit({ 
+        email, 
+        password, 
+        name, 
+        profilePicture: profilePicture.length > 0 ? profilePicture[0] : undefined 
+      });
     } else {
       onSubmit({ email, password });
     }
+  };
+
+  const handleProfilePictureChange = (files: File[]) => {
+    setProfilePicture(files);
   };
 
   return (
@@ -48,23 +60,50 @@ const AuthForm: React.FC<AuthFormProps> = ({
         {error && <div className={styles.error}>{error}</div>}
 
         {type === 'signup' && (
-          <div className={styles.inputGroup}>
-            <label htmlFor="name" className={styles.label}>
-              Full Name
-            </label>
-            <div className={styles.inputWrapper}>
-              <AtSign size={18} className={styles.inputIcon} />
-              <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="John Doe"
-                required
-                className={styles.input}
-              />
+          <>
+            <div className={styles.inputGroup}>
+              <label htmlFor="name" className={styles.label}>
+                Full Name
+              </label>
+              <div className={styles.inputWrapper}>
+                <AtSign size={18} className={styles.inputIcon} />
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="John Doe"
+                  required
+                  className={styles.input}
+                />
+              </div>
             </div>
-          </div>
+
+            <div className={styles.profilePictureSection}>
+              <label className={styles.label}>Profile Picture</label>
+              <div className={styles.avatarUploadContainer}>
+                <div className={styles.avatarPreview}>
+                  {profilePicture.length > 0 ? (
+                    <Avatar className={styles.avatar}>
+                      <AvatarImage src={URL.createObjectURL(profilePicture[0])} alt="Profile" />
+                      <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                  ) : (
+                    <Avatar className={styles.avatar}>
+                      <AvatarFallback>{name ? name.charAt(0) : '?'}</AvatarFallback>
+                    </Avatar>
+                  )}
+                </div>
+                <div className={styles.mediaUploadWrapper}>
+                  <MediaUpload
+                    maxFiles={1}
+                    value={profilePicture}
+                    onChange={handleProfilePictureChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </>
         )}
 
         <div className={styles.inputGroup}>

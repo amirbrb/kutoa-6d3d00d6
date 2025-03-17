@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import AuthForm from '../components/AuthForm';
 import NavigationBar from '../components/NavigationBar';
 import styles from './Auth.module.css';
@@ -8,8 +9,9 @@ import styles from './Auth.module.css';
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
+  const { toast } = useToast();
 
-  const handleSignup = (data: { email: string; password: string; name?: string }) => {
+  const handleSignup = (data: { email: string; password: string; name?: string; profilePicture?: File }) => {
     setIsLoading(true);
     setError(undefined);
     
@@ -24,8 +26,27 @@ const Signup = () => {
         return;
       }
       
+      // Process profile picture if present
+      let profilePictureUrl = '';
+      if (data.profilePicture) {
+        // In a real app, you would upload the file to a server
+        // Here we're just creating a local URL for demo purposes
+        profilePictureUrl = URL.createObjectURL(data.profilePicture);
+        console.log('Profile picture URL:', profilePictureUrl);
+      }
+      
       // Successful signup simulation
-      localStorage.setItem('user', JSON.stringify({ email: data.email, name: data.name }));
+      localStorage.setItem('user', JSON.stringify({ 
+        email: data.email, 
+        name: data.name,
+        profilePicture: profilePictureUrl
+      }));
+      
+      toast({
+        title: "Account created successfully!",
+        description: "Welcome to Emergency Connect.",
+      });
+      
       window.location.href = '/dashboard';
     }, 1500);
   };
@@ -39,7 +60,11 @@ const Signup = () => {
       console.log('Google sign in attempted');
       
       // Successful signup simulation
-      localStorage.setItem('user', JSON.stringify({ email: 'google-user@example.com', name: 'Google User' }));
+      localStorage.setItem('user', JSON.stringify({ 
+        email: 'google-user@example.com', 
+        name: 'Google User',
+        profilePicture: 'https://api.dicebear.com/7.x/avataaars/svg?seed=google-user'
+      }));
       window.location.href = '/dashboard';
     }, 1500);
   };

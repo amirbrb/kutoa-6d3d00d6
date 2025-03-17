@@ -4,6 +4,7 @@ import { AlertTriangle, MapPin, Info, Check } from 'lucide-react';
 import NavigationBar from '../components/NavigationBar';
 import LocationPicker from '../components/LocationPicker';
 import EmergencyButton from '../components/EmergencyButton';
+import MediaUpload from '../components/MediaUpload';
 import styles from './RequestHelp.module.css';
 
 interface Location {
@@ -17,6 +18,7 @@ const RequestHelp = () => {
   const [location, setLocation] = useState<Location | null>(null);
   const [requestType, setRequestType] = useState<string>('medical');
   const [description, setDescription] = useState<string>('');
+  const [mediaFiles, setMediaFiles] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -40,6 +42,10 @@ const RequestHelp = () => {
     setLocation(selectedLocation);
   };
 
+  const handleMediaChange = (files: File[]) => {
+    setMediaFiles(files);
+  };
+
   const handleEmergencyRequest = () => {
     if (!location) {
       alert('Please select a location first');
@@ -54,6 +60,7 @@ const RequestHelp = () => {
         location,
         type: requestType,
         description,
+        mediaFiles,
         user
       });
       
@@ -165,6 +172,23 @@ const RequestHelp = () => {
               
               <div className={styles.step}>
                 <div className={styles.stepNumber}>3</div>
+                <div className={styles.stepContent}>
+                  <h2 className={styles.stepTitle}>Upload Media (Optional)</h2>
+                  <p className={styles.mediaInstructions}>
+                    Add photos or videos related to your emergency. This can help emergency responders better understand the situation.
+                  </p>
+                  <div className={styles.mediaUpload}>
+                    <MediaUpload 
+                      maxFiles={5}
+                      value={mediaFiles}
+                      onChange={handleMediaChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.step}>
+                <div className={styles.stepNumber}>4</div>
                 <div className={styles.stepContent}>
                   <h2 className={styles.stepTitle}>Submit Your Request</h2>
                   <div className={styles.submitSection}>

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
@@ -118,7 +119,6 @@ const Dashboard = () => {
   };
 
   const handleEventClick = (eventId: string) => {
-    console.log('eventId', eventId);
     navigate(`/events/${eventId}`);
   };
 
@@ -296,7 +296,12 @@ const Dashboard = () => {
             <div className={styles.nearbyEventsSection}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Events Near You</h2>
-                <button className={styles.viewAllButton}>View All</button>
+                <div className="flex items-center gap-2">
+                  <Link to="/create-event" className="text-sm font-medium text-accent hover:underline">
+                    Create Event
+                  </Link>
+                  <button className={styles.viewAllButton}>View All</button>
+                </div>
               </div>
               
               {isLoadingEvents ? (
@@ -352,9 +357,9 @@ const Dashboard = () => {
                   <MapPin size={32} />
                   <h3>No Nearby Events</h3>
                   <p>There are no community events near you right now.</p>
-                  <button className={styles.createEventButton}>
+                  <Link to="/create-event" className={styles.createEventButton}>
                     Create an Event
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>

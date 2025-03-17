@@ -1,5 +1,4 @@
-
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -27,17 +26,19 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<Index isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
-      <Route path="/login" element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/request-help" element={<RequestHelp />} />
-      <Route path="/profile" element={<UserProfile />} />
-      <Route path="/events/:id" element={<EventDetails />} />
-      <Route path="/create-event" element={<CreateEvent />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
+        <Route path="/login" element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/request-help" element={<RequestHelp />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/create-event" element={<CreateEvent />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, AtSign, Eye, EyeOff } from 'lucide-react';
 import styles from './AuthForm.module.css';
-import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import MediaUpload from './MediaUpload';
 
 interface AuthFormProps {
@@ -82,25 +81,14 @@ const AuthForm: React.FC<AuthFormProps> = ({
             <div className={styles.profilePictureSection}>
               <label className={styles.label}>Profile Picture</label>
               <div className={styles.avatarUploadContainer}>
-                <div className={styles.avatarPreview}>
-                  {profilePicture.length > 0 ? (
-                    <Avatar className={styles.avatar}>
-                      <AvatarImage src={URL.createObjectURL(profilePicture[0])} alt="Profile" />
-                      <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                  ) : (
-                    <Avatar className={styles.avatar}>
-                      <AvatarFallback>{name ? name.charAt(0) : '?'}</AvatarFallback>
-                    </Avatar>
-                  )}
-                </div>
-                <div className={styles.mediaUploadWrapper}>
-                  <MediaUpload
+                <MediaUpload
                     maxFiles={1}
                     value={profilePicture}
                     onChange={handleProfilePictureChange}
+                    showPreview
+                    className={styles.mediaUploadWrapper} 
+                    previewClassName={styles.mediaUploadPreview}
                   />
-                </div>
               </div>
             </div>
           </>

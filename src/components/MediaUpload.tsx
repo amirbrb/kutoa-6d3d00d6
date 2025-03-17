@@ -1,18 +1,25 @@
-
 import React, { useState } from 'react';
-import { X, Upload, Image as ImageIcon, FilmIcon } from 'lucide-react';
+import { X, Upload, FilmIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import styles from './MediaUpload.module.css';
+import classNames from 'classnames';
 
 interface MediaUploadProps {
   maxFiles?: number;
   onChange: (files: File[]) => void;
   value: File[];
+  showPreview?: boolean;
+  className?: string;
+  previewClassName?: string;
 }
 
 const MediaUpload: React.FC<MediaUploadProps> = ({ 
   maxFiles = 5, 
   onChange, 
-  value = [] 
+  value = [],
+  showPreview = true,
+  className = '',
+  previewClassName = ''
 }) => {
   const { toast } = useToast();
   const [dragActive, setDragActive] = useState(false);
@@ -74,16 +81,16 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
   const isVideo = (file: File) => file.type.startsWith('video/');
 
   return (
-    <div className="w-full space-y-4">
-      {value.length > 0 && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className={className}>
+      {showPreview && value.length > 0 && (
+        <div>
           {value.map((file, index) => (
             <div key={index} className="relative bg-gray-100 rounded-md overflow-hidden aspect-square">
               {isImage(file) && (
                 <img 
                   src={URL.createObjectURL(file)} 
                   alt={`Preview ${index}`} 
-                  className="w-full h-full object-cover"
+                  className={classNames(styles.image, previewClassName)}
                 />
               )}
               {isVideo(file) && (
@@ -108,9 +115,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
 
       {value.length < maxFiles && (
         <div
-          className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
-            dragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
-          }`}
+          className={styles.uploadContainer}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
@@ -129,7 +134,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
             type="file"
             multiple
             accept="image/*, video/*"
-            className="hidden"
+            className={styles.input}
             onChange={(e) => {
               if (e.target.files) {
                 handleFileChange(e.target.files);

@@ -45,7 +45,7 @@ const EventDetails = () => {
         time: new Date(Date.now() + 3 * 24 * 60 * 60000),
         participants: 24,
         type: 'volunteer',
-        description: 'Join us for our monthly community cleanup day! We'll be meeting at the central pavilion and working our way through the main trails. Gloves and bags will be provided, but feel free to bring your own tools. Water and snacks will be available for all volunteers. This is a family-friendly event, so children are welcome under adult supervision.',
+        description: "Join us for our monthly community cleanup day! We'll be meeting at the central pavilion and working our way through the main trails. Gloves and bags will be provided, but feel free to bring your own tools. Water and snacks will be available for all volunteers. This is a family-friendly event, so children are welcome under adult supervision.",
         media: [
           'https://images.unsplash.com/photo-1561347981-969c80cf4463?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
           'https://images.unsplash.com/photo-1567095761054-7a02e69e5c43?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',

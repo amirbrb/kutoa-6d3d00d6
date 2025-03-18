@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthForm from '../components/AuthForm';
-import NavigationBar from '../components/NavigationBar';
+import AuthForm from '../../components/AuthForm/AuthForm';
+import NavigationBar from '../../components/NavigationBar/NavigationBar';
 import styles from './Auth.module.css';
-import { useToast } from '../components/ui/use-toast';
+import { useToast } from '../../components/ui/use-toast';
+import PageWrapper from '@/components/PageWrapper/PageWrapper';
 
 interface LoginProps {
   onLoginSuccess?: () => void;
@@ -56,9 +57,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className={styles.page}>
-      <NavigationBar isLoggedIn={false} onLogout={() => {}} />
-      
+    <PageWrapper>
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <AuthForm 
@@ -86,7 +85,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

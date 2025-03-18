@@ -2,16 +2,16 @@
 import React from 'react';
 import { User, Settings, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
-import { Dialog } from './ui/dialog';
-import UserProfileDialog from './UserProfileDialog';
+} from '../ui/dropdown-menu';
+import { Dialog } from '../ui/dialog';
+import UserProfileDialog from '../UserProfileDialog/UserProfileDialog';
 import styles from './UserSubmenu.module.css';
 
 interface UserSubmenuProps {

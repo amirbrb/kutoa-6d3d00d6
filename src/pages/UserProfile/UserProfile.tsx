@@ -1,15 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { Label } from '../components/ui/label';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Textarea } from '../../components/ui/textarea';
+import { Avatar, AvatarFallback, AvatarImage } from '../../components/ui/avatar';
+import { Label } from '../../components/ui/label';
 import { User, MapPin, Mail, Heart, Calendar, Image, Save } from 'lucide-react';
-import { useToast } from '../components/ui/use-toast';
+import { useToast } from '../../components/ui/use-toast';
 import styles from './UserProfile.module.css';
+import PageWrapper from '@/components/PageWrapper/PageWrapper';
 
 const UserProfile = () => {
   const { toast } = useToast();
@@ -103,8 +104,8 @@ const UserProfile = () => {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.contentContainer}>
+    <PageWrapper>
+      <div className={styles.pageContainer}>
         <h1 className={styles.pageTitle}>User Profile</h1>
         
         <div className={styles.profileGrid}>
@@ -259,7 +260,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

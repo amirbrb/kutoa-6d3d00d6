@@ -3,15 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import styles from './NavigationBar.module.css';
-import UserSubmenu from './UserSubmenu';
-import { useIsMobile } from '../hooks/use-mobile';
+import UserSubmenu from '../UserSubMenu/UserSubmenu';
+import { useIsMobile } from '../../hooks/use-mobile';
+import useUser from '@/hooks/useUser';
 
-interface NavigationBarProps {
-  isLoggedIn: boolean;
-  onLogout: () => void;
-}
-
-const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) => {
+const NavigationBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -29,6 +25,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  const {user, logout} = useUser();
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -49,7 +47,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
                 Home
               </Link>
             </li>
-            {isLoggedIn ? (
+            {user ? (
               <>
                 <li>
                   <Link 
@@ -86,7 +84,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
                       </Link>
                     </li>
                     <li>
-                      <button onClick={onLogout} className={styles.navLink}>
+                      <button onClick={logout} className={styles.navLink}>
                         <span>Logout</span>
                       </button>
                     </li>
@@ -116,9 +114,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ isLoggedIn, onLogout }) =
           </ul>
         </nav>
 
-        {isLoggedIn && !isMobile && (
+        {user && !isMobile && (
           <div className={styles.userActions}>
-            <UserSubmenu onLogout={onLogout} />
+            <UserSubmenu onLogout={logout} />
           </div>
         )}
 

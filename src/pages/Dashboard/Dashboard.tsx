@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
 import { MapPin } from 'lucide-react';
-import NavigationBar from '../components/NavigationBar';
 import styles from './Dashboard.module.css';
+import PageWrapper from '@/components/PageWrapper/PageWrapper';
 
 interface EmergencyRequest {
   id: string;
@@ -207,9 +207,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={styles.page}>
-      <NavigationBar isLoggedIn={true} onLogout={handleLogout} />
-      
+    <PageWrapper>
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>Dashboard</h1>
@@ -366,7 +364,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

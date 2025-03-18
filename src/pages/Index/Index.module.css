@@ -15,7 +15,6 @@
 /* Hero Section */
 .hero {
   width: 100%;
-  padding-top: 130px;
   padding-bottom: var(--space-8);
   position: relative;
   overflow: hidden;
@@ -300,9 +299,6 @@
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding-top: 100px;
-  }
   
   .featureGrid {
     grid-template-columns: 1fr;

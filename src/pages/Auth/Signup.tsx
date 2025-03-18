@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import AuthForm from '../components/AuthForm';
-import NavigationBar from '../components/NavigationBar';
+import AuthForm from '../../components/AuthForm/AuthForm';
 import styles from './Auth.module.css';
+import PageWrapper from '@/components/PageWrapper/PageWrapper';
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -70,9 +70,7 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.page}>
-      <NavigationBar isLoggedIn={false} onLogout={() => {}} />
-      
+    <PageWrapper>
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <AuthForm
@@ -97,7 +95,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

@@ -1,18 +1,17 @@
 
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { MapPin, Calendar, Users, Info } from 'lucide-react';
+import { MapPin, Calendar, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import NavigationBar from '../components/NavigationBar';
-import MediaUpload from '../components/MediaUpload';
+import MediaUpload from '../../components/MediaUpload/MediaUpload';
+import PageWrapper from '@/components/PageWrapper/PageWrapper';
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -63,15 +62,14 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <NavigationBar isLoggedIn={true} onLogout={handleLogout} />
+    <PageWrapper>
       
-      <div className="max-w-3xl mx-auto pt-24 pb-16 px-4 sm:px-6">
-        <div className="bg-white rounded-xl shadow-md overflow-hidden p-6 sm:p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">Create New Event</h1>
+      <div >
+        <div>
+          <h1>Create New Event</h1>
           
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
                 name="title"
@@ -86,14 +84,14 @@ const CreateEvent = () => {
                 )}
               />
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
                 <FormField
                   control={form.control}
                   name="location"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        <span className="flex items-center gap-2">
+                        <span>
                           <MapPin size={16} />
                           Location
                         </span>
@@ -114,7 +112,6 @@ const CreateEvent = () => {
                       <FormLabel>Event Type</FormLabel>
                       <FormControl>
                         <select
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                           {...field}
                         >
                           <option value="medical">Medical</option>
@@ -129,14 +126,14 @@ const CreateEvent = () => {
                 />
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
                 <FormField
                   control={form.control}
                   name="date"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        <span className="flex items-center gap-2">
+                        <span>
                           <Calendar size={16} />
                           Date
                         </span>
@@ -170,7 +167,7 @@ const CreateEvent = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span className="flex items-center gap-2">
+                      <span>
                         <Info size={16} />
                         Description
                       </span>
@@ -178,7 +175,6 @@ const CreateEvent = () => {
                     <FormControl>
                       <Textarea 
                         placeholder="Describe your event..." 
-                        className="min-h-[120px]"
                         {...field} 
                       />
                     </FormControl>
@@ -205,7 +201,7 @@ const CreateEvent = () => {
                 )}
               />
               
-              <div className="flex justify-end space-x-4 pt-4">
+              <div>
                 <Button 
                   type="button" 
                   variant="outline"
@@ -219,7 +215,7 @@ const CreateEvent = () => {
           </Form>
         </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

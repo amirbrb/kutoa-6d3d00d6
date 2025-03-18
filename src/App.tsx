@@ -1,14 +1,14 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
-import RequestHelp from './pages/RequestHelp';
-import UserProfile from './pages/UserProfile';
-import NotFound from './pages/NotFound';
-import Index from './pages/Index';
-import EventDetails from './pages/EventDetails';
-import CreateEvent from './pages/CreateEvent';
+import Login from './pages/Auth/Login';
+import Signup from './pages/Auth/Signup';
+import Dashboard from './pages/Dashboard/Dashboard';
+import RequestHelp from './pages/RequestHelp/RequestHelp';
+import UserProfile from './pages/UserProfile/UserProfile';
+import NotFound from './pages/NotFound/NotFound';
+import Index from './pages/Index/Index';
+import EventDetails from './pages/EventDetails/EventDetails';
+import CreateEvent from './pages/CreateEvent/CreateEvent';
 import './App.css';
 
 function App() {

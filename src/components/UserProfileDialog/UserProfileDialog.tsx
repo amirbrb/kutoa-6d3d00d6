@@ -1,17 +1,17 @@
 
 import React, { useState } from 'react';
-import { 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import {
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogDescription,
   DialogFooter,
   DialogClose
-} from './ui/dialog';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Textarea } from './ui/textarea';
+} from '../ui/dialog';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
 import { User, Image as ImageIcon, Save } from 'lucide-react';
 import styles from './UserProfileDialog.module.css';
 

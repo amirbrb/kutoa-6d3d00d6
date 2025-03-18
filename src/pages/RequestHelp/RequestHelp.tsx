@@ -1,10 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle, MapPin, Info, Check } from 'lucide-react';
-import NavigationBar from '../components/NavigationBar';
-import LocationPicker from '../components/LocationPicker';
-import EmergencyButton from '../components/EmergencyButton';
-import MediaUpload from '../components/MediaUpload';
+import { useState, useEffect } from 'react';
+import { Info, Check } from 'lucide-react';
+import NavigationBar from '../../components/NavigationBar/NavigationBar';
+import LocationPicker from '../../components/LocationPicker/LocationPicker';
+import EmergencyButton from '../../components/EmergencyButton/EmergencyButton';
+import MediaUpload from '../../components/MediaUpload/MediaUpload';
 import styles from './RequestHelp.module.css';
 
 interface Location {

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, AtSign, Eye, EyeOff } from 'lucide-react';
 import styles from './AuthForm.module.css';
-import MediaUpload from './MediaUpload';
+import MediaUpload from '../MediaUpload/MediaUpload';
 
 interface AuthFormProps {
   type: 'login' | 'signup';

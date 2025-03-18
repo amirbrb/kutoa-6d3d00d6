@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Home, LayoutDashboard, HelpCircle, LogIn, UserPlus, User, Settings, LogOut } from 'lucide-react';
 import styles from './NavigationBar.module.css';
 import UserSubmenu from '../UserSubMenu/UserSubmenu';
 import { useIsMobile } from '../../hooks/use-mobile';
@@ -44,7 +44,8 @@ const NavigationBar: React.FC = () => {
                 to="/" 
                 className={`${styles.navLink} ${location.pathname === '/' ? styles.active : ''}`}
               >
-                Home
+                {isMobile && <Home size={20} className={styles.navIcon} />}
+                <span>Home</span>
               </Link>
             </li>
             {user ? (
@@ -54,7 +55,8 @@ const NavigationBar: React.FC = () => {
                     to="/dashboard" 
                     className={`${styles.navLink} ${location.pathname === '/dashboard' ? styles.active : ''}`}
                   >
-                    Dashboard
+                    {isMobile && <LayoutDashboard size={20} className={styles.navIcon} />}
+                    <span>Dashboard</span>
                   </Link>
                 </li>
                 <li>
@@ -62,7 +64,8 @@ const NavigationBar: React.FC = () => {
                     to="/request-help" 
                     className={`${styles.navLink} ${location.pathname === '/request-help' ? styles.active : ''}`}
                   >
-                    Request Help
+                    {isMobile && <HelpCircle size={20} className={styles.navIcon} />}
+                    <span>Request Help</span>
                   </Link>
                 </li>
                 {isMobile && (
@@ -72,7 +75,8 @@ const NavigationBar: React.FC = () => {
                         to="/profile" 
                         className={`${styles.navLink} ${location.pathname === '/profile' ? styles.active : ''}`}
                       >
-                        Profile
+                        <User size={20} className={styles.navIcon} />
+                        <span>Profile</span>
                       </Link>
                     </li>
                     <li>
@@ -80,11 +84,13 @@ const NavigationBar: React.FC = () => {
                         to="/settings" 
                         className={`${styles.navLink} ${location.pathname === '/settings' ? styles.active : ''}`}
                       >
-                        Settings
+                        <Settings size={20} className={styles.navIcon} />
+                        <span>Settings</span>
                       </Link>
                     </li>
                     <li>
                       <button onClick={logout} className={styles.navLink}>
+                        <LogOut size={20} className={styles.navIcon} />
                         <span>Logout</span>
                       </button>
                     </li>
@@ -98,7 +104,8 @@ const NavigationBar: React.FC = () => {
                     to="/login" 
                     className={`${styles.navLink} ${location.pathname === '/login' ? styles.active : ''}`}
                   >
-                    Login
+                    {isMobile && <LogIn size={20} className={styles.navIcon} />}
+                    <span>Login</span>
                   </Link>
                 </li>
                 <li>
@@ -106,7 +113,8 @@ const NavigationBar: React.FC = () => {
                     to="/signup" 
                     className={`${styles.navLink} ${location.pathname === '/signup' ? styles.active : ''}`}
                   >
-                    Sign Up
+                    {isMobile && <UserPlus size={20} className={styles.navIcon} />}
+                    <span>Sign Up</span>
                   </Link>
                 </li>
               </>

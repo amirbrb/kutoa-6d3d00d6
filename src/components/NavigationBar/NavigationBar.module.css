@@ -74,6 +74,12 @@
   cursor: pointer;
 }
 
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .navLink:hover {
   color: var(--color-accent);
   background-color: rgba(0, 102, 204, 0.05);
@@ -160,6 +166,10 @@
   .navLink {
     width: 100%;
     padding: var(--space-3) var(--space-3);
+  }
+
+  .navIcon {
+    margin-right: var(--space-2);
   }
 
   .userActions {

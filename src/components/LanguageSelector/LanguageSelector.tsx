@@ -7,7 +7,7 @@ interface LanguageSelectorProps {
   currentLanguage: SystemLanguage;
 }
 
-const LanguageSelector: React.FC<LanguageSelectorProps> = ({onLanguageChange, currentLanguage}) => {
+function LanguageSelector({onLanguageChange, currentLanguage}: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const currentFlag = systemLanguages[currentLanguage.code]?.flag || systemLanguages[0].flag;
@@ -34,13 +34,13 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({onLanguageChange, cu
               }}
             >
               <span className={styles.flag}>{language.flag}</span>
-              <span className={styles.languageName}>{language.name}</span>
+              <span>{language.name}</span>
             </button>
           ))}
         </div>
       )}
     </div>
   );
-};
+}
 
 export default LanguageSelector;

@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+
 import {Link, useLocation} from 'react-router-dom';
 import {
   Menu,
@@ -20,13 +21,14 @@ import {SystemRoutes} from '@/modules/routing/routing.types';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import useLanguage from '@/hooks/useLanguage';
 import classNames from 'classnames';
+import useSystemPhrase from '@/hooks/useSystemPhrase';
 
 function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
-  const {language, setLanguage} = useLanguage();
+  const {language, updateLanguage} = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +44,7 @@ function NavigationBar() {
   }, [location]);
 
   const {user, logout} = useUser();
+  const {translate} = useSystemPhrase();
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -50,7 +53,7 @@ function NavigationBar() {
           <Link to={SystemRoutes.Home} className={styles.logo}>
             <img src="/icons/logo.png" alt="Kutoa Logo" className={styles.logoImage} />
           </Link>
-          <LanguageSelector onLanguageChange={setLanguage} currentLanguage={language} />
+          <LanguageSelector onLanguageChange={updateLanguage} currentLanguage={language} />
         </div>
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
@@ -61,7 +64,7 @@ function NavigationBar() {
                 className={`${styles.navLink} ${location.pathname === SystemRoutes.Home ? styles.active : ''}`}
               >
                 {isMobile && <Home size={20} className={styles.navIcon} />}
-                <span>Home</span>
+                <span>{translate('menus.home')}</span>
               </Link>
             </li>
             {user ? (
@@ -72,7 +75,7 @@ function NavigationBar() {
                     className={`${styles.navLink} ${location.pathname === SystemRoutes.Dashboard ? styles.active : ''}`}
                   >
                     {isMobile && <LayoutDashboard size={20} className={styles.navIcon} />}
-                    <span>Dashboard</span>
+                    <span>{translate('menus.dashboard')}</span>
                   </Link>
                 </li>
                 <li>
@@ -81,7 +84,7 @@ function NavigationBar() {
                     className={`${styles.navLink} ${location.pathname === SystemRoutes.RequestHelp ? styles.active : ''}`}
                   >
                     {isMobile && <HelpCircle size={20} className={styles.navIcon} />}
-                    <span>Request Help</span>
+                    <span>{translate('menus.help')}</span>
                   </Link>
                 </li>
                 {isMobile && (
@@ -92,7 +95,7 @@ function NavigationBar() {
                         className={`${styles.navLink} ${location.pathname === SystemRoutes.Profile ? styles.active : ''}`}
                       >
                         <User size={20} className={styles.navIcon} />
-                        <span>Profile</span>
+                        <span>{translate('menus.profile')}</span>
                       </Link>
                     </li>
                     <li>
@@ -101,13 +104,13 @@ function NavigationBar() {
                         className={`${styles.navLink} ${location.pathname === SystemRoutes.Settings ? styles.active : ''}`}
                       >
                         <Settings size={20} className={styles.navIcon} />
-                        <span>Settings</span>
+                        <span>{translate('menus.settings')}</span>
                       </Link>
                     </li>
                     <li>
                       <button onClick={logout} className={styles.navLink}>
                         <LogOut size={20} className={styles.navIcon} />
-                        <span>Logout</span>
+                        <span>{translate('menus.logout')}</span>
                       </button>
                     </li>
                   </>
@@ -121,7 +124,7 @@ function NavigationBar() {
                     className={`${styles.navLink} ${location.pathname === SystemRoutes.Login ? styles.active : ''}`}
                   >
                     {isMobile && <LogIn size={20} className={styles.navIcon} />}
-                    <span>Login</span>
+                    <span>{translate('menus.login')}</span>
                   </Link>
                 </li>
                 <li>
@@ -130,7 +133,7 @@ function NavigationBar() {
                     className={`${styles.navLink} ${location.pathname === SystemRoutes.Signup ? styles.active : ''}`}
                   >
                     {isMobile && <UserPlus size={20} className={styles.navIcon} />}
-                    <span>Sign Up</span>
+                    <span>{translate('menus.signup')}</span>
                   </Link>
                 </li>
               </>

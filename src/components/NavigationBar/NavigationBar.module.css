@@ -24,6 +24,7 @@
   padding: 0 var(--space-3);
   max-width: 1280px;
   margin: 0 auto;
+  direction: ltr; /* allways stick to ltr */
 }
 
 .logoContainer {
@@ -69,10 +70,6 @@
   gap: var(--space-4);
 
   direction: rtl;
-
-  [dir='rtl'] & {
-    direction: ltr;
-  }
 }
 
 .navLink {
@@ -163,13 +160,6 @@
     transition: transform var(--transition-normal);
     z-index: 1000;
     padding-top: 80px;
-  }
-
-  /* Add RTL support */
-  [dir='rtl'] .nav {
-    right: auto;
-    left: 0;
-    transform: translateX(-100%);
   }
 
   .nav.open {

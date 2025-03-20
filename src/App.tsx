@@ -12,6 +12,8 @@ import CreateEvent from './pages/CreateEvent/CreateEvent';
 import './App.css';
 import { SystemRoutes } from './modules/routing/routing.types';
 
+import './i18n'; // Import i18n before rendering the app
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

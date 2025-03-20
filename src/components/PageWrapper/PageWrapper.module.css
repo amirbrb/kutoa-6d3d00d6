@@ -6,7 +6,8 @@
     width: 100%;
     max-height: calc(100vh - 70px);
     min-height: calc(100vh - 70px);
-    margin-top: 70px;
+    margin-top: 54px;
     overflow: auto;
+    padding: var(--space-4);
 }
 

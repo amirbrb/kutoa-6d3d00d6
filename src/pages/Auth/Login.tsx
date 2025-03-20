@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
-import NavigationBar from '../../components/NavigationBar/NavigationBar';
 import styles from './Auth.module.css';
 import { useToast } from '../../components/ui/use-toast';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
+import { SystemRoutes } from '@/modules/routing/routing.types';
 
 interface LoginProps {
   onLoginSuccess?: () => void;
@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
           onLoginSuccess();
         }
         
-        navigate('/dashboard');
+        navigate(SystemRoutes.Dashboard);
       } else {
         setError("Please enter valid credentials");
       }

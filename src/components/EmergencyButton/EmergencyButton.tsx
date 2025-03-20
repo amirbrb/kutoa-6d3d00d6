@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
 import styles from './EmergencyButton.module.css';
 
@@ -8,10 +8,10 @@ interface EmergencyButtonProps {
   isDisabled?: boolean;
 }
 
-const EmergencyButton: React.FC<EmergencyButtonProps> = ({ 
+function EmergencyButton({ 
   onActivate,
   isDisabled = false 
-}) => {
+}: EmergencyButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [holdTimeout, setHoldTimeout] = useState<NodeJS.Timeout | null>(null);
   

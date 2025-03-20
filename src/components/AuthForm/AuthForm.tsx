@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Mail, Lock, AtSign, Eye, EyeOff } from 'lucide-react';
 import styles from './AuthForm.module.css';
 import MediaUpload from '../MediaUpload/MediaUpload';
+import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 
 interface AuthFormProps {
   type: 'login' | 'signup';
@@ -12,13 +13,13 @@ interface AuthFormProps {
   error?: string;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({
+function AuthForm({
   type,
   onSubmit,
   onGoogleSignIn,
   isLoading,
   error,
-}) => {
+}: AuthFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -56,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
             : 'Fill in your details to create a new account'}
         </p>
 
-        {error && <div className={styles.error}>{error}</div>}
+        {error && <ErrorIndicator error={error} />}
 
         {type === 'signup' && (
           <>

@@ -1,10 +1,11 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/useToast';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import styles from './Auth.module.css';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
+import { SystemRoutes } from '@/modules/routing/routing.types';
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +83,7 @@ const Signup = () => {
           />
           
           <div className={styles.switchLink}>
-            Already have an account? <Link to="/login">Log in</Link>
+            Already have an account?  <Link to={SystemRoutes.Login}>Log in</Link>
           </div>
         </div>
         
@@ -98,5 +99,8 @@ const Signup = () => {
     </PageWrapper>
   );
 };
+
+
+
 
 export default Signup;

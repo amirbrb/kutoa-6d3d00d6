@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MapPin, Calendar, Clock, Users, ChevronLeft } from 'lucide-react';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
-
+import { SystemRoutes } from '@/modules/routing/routing.types';
+import styles from './EventDetails.module.css';
 interface NearbyEvent {
   id: string;
   title: string;
@@ -101,7 +102,7 @@ const EventDetails = () => {
             <h1>Event not found</h1>
             <p>The event you're looking for doesn't exist or has been removed.</p>
             <button 
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate(SystemRoutes.Dashboard)}
             >
               <ChevronLeft size={16} />
               <span>Back to Dashboard</span>
@@ -117,7 +118,7 @@ const EventDetails = () => {
       
       <div>
         <button 
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate(SystemRoutes.Dashboard)}
         >
           <ChevronLeft size={16} />
           <span>Back to Dashboard</span>
@@ -130,6 +131,7 @@ const EventDetails = () => {
                 {event.media.slice(0, 1).map((url, index) => (
                   <div key={index}>
                     <img 
+                      className={styles.img}
                       src={url} 
                       alt={event.title} 
                     />
@@ -140,6 +142,7 @@ const EventDetails = () => {
                     {event.media.slice(1, 3).map((url, index) => (
                       <div key={index + 1}>
                         <img 
+                        className={styles.img}
                           src={url} 
                           alt={`${event.title} ${index + 1}`} 
                         />

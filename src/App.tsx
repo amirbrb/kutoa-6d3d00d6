@@ -10,6 +10,7 @@ import Index from './pages/Index/Index';
 import EventDetails from './pages/EventDetails/EventDetails';
 import CreateEvent from './pages/CreateEvent/CreateEvent';
 import './App.css';
+import { SystemRoutes } from './modules/routing/routing.types';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,15 +29,15 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Index isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
-        <Route path="/login" element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/request-help" element={<RequestHelp />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/events/:id" element={<EventDetails />} />
-        <Route path="/create-event" element={<CreateEvent />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path={SystemRoutes.Home} element={<Index isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
+        <Route path={SystemRoutes.Login} element={<Login onLoginSuccess={() => setIsLoggedIn(true)} />} />
+        <Route path={SystemRoutes.Signup} element={<Signup />} />
+        <Route path={SystemRoutes.Dashboard} element={<Dashboard />} />
+        <Route path={SystemRoutes.RequestHelp} element={<RequestHelp />} />
+        <Route path={SystemRoutes.Profile} element={<UserProfile />} />
+        <Route path={SystemRoutes.Events} element={<EventDetails />} />
+        <Route path={SystemRoutes.CreateEvent} element={<CreateEvent />} />
+        <Route path={SystemRoutes.NotFound} element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

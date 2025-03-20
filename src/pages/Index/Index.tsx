@@ -1,9 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { AlertTriangle, Shield, MapPin, Clock } from 'lucide-react';
+import { Shield, MapPin, Clock } from 'lucide-react';
 import styles from './Index.module.css';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
-
+import { SystemRoutes } from '@/modules/routing/routing.types';
 interface IndexProps {
   isLoggedIn: boolean;
   onLogout: () => void;
@@ -19,11 +19,10 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
           <div className={styles.container}>
             <div className={styles.content}>
               <div className={styles.chip}>
-                <AlertTriangle size={14} />
-                <span>Fast & Reliable Emergency Response</span>
+                <span>Fast & Reliable Response</span>
               </div>
               <h1 className={styles.title}>
-                Quick Emergency Assistance
+                Quick Assistance
                 <span className={styles.accent}> When You Need It Most</span>
               </h1>
               <p className={styles.subtitle}>
@@ -31,10 +30,10 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
                 providing fast response when every second counts.
               </p>
               <div className={styles.actions}>
-                {!isLoggedIn && <Link to="/signup" className={styles.primaryButton}>
+                {!isLoggedIn && <Link to={SystemRoutes.Signup} className={styles.primaryButton}>
                   Sign Up Now
                 </Link>}
-                <Link to="/request-help" className={styles.secondaryButton}>
+                <Link to={SystemRoutes.RequestHelp} className={styles.secondaryButton}>
                   Request Help
                 </Link>
               </div>
@@ -89,7 +88,7 @@ const Index: React.FC<IndexProps> = ({ isLoggedIn, onLogout }) => {
               <p className={styles.ctaText}>
                 Create an account today and have peace of mind knowing help is just a click away.
               </p>
-              <Link to="/signup" className={styles.ctaButton}>
+              <Link to={SystemRoutes.Signup} className={styles.ctaButton}>
                 Get Started
               </Link>
             </div>

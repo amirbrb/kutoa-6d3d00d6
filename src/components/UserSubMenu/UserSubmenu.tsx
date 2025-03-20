@@ -13,6 +13,7 @@ import {
 import { Dialog } from '../ui/dialog';
 import UserProfileDialog from '../UserProfileDialog/UserProfileDialog';
 import styles from './UserSubmenu.module.css';
+import { SystemRoutes } from '@/modules/routing/routing.types';
 
 interface UserSubmenuProps {
   onLogout: () => void;
@@ -55,11 +56,11 @@ const UserSubmenu: React.FC<UserSubmenuProps> = ({ onLogout }) => {
             </div>
           </div>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate('/profile')}>
+          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate(SystemRoutes.Profile)}>
             <User size={18} />
             <span>View Profile</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate('/settings')}>
+          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate(SystemRoutes.Settings)}>
             <Settings size={18} />
             <span>Settings</span>
           </DropdownMenuItem>

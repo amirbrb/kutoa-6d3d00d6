@@ -1,7 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MapPin, Locate, Search } from 'lucide-react';
 import styles from './LocationPicker.module.css';
+import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 
 interface Location {
   latitude: number;
@@ -13,7 +14,7 @@ interface LocationPickerProps {
   onLocationSelect: (location: Location) => void;
 }
 
-const LocationPicker: React.FC<LocationPickerProps> = ({ onLocationSelect }) => {
+function LocationPicker({ onLocationSelect }: LocationPickerProps) {
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -137,7 +138,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onLocationSelect }) => 
         </button>
       </form>
       
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <ErrorIndicator error={error} />}
       
       {currentLocation && currentLocation.address && (
         <div className={styles.selectedLocation}>

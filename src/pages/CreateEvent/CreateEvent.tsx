@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { MapPin, Calendar, Info } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/useToast";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import MediaUpload from '../../components/MediaUpload/MediaUpload';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
+import { SystemRoutes } from '@/modules/routing/routing.types';
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -58,7 +59,7 @@ const CreateEvent = () => {
       description: "Your event has been created successfully!",
     });
     
-    navigate('/dashboard');
+    navigate(SystemRoutes.Dashboard);
   };
 
   return (
@@ -205,7 +206,7 @@ const CreateEvent = () => {
                 <Button 
                   type="button" 
                   variant="outline"
-                  onClick={() => navigate('/dashboard')}
+                  onClick={() => navigate(SystemRoutes.Dashboard)}
                 >
                   Cancel
                 </Button>

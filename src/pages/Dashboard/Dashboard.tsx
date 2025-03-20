@@ -5,7 +5,7 @@ import { AlertTriangle, Clock, CheckCircle, XCircle, Users } from 'lucide-react'
 import { MapPin } from 'lucide-react';
 import styles from './Dashboard.module.css';
 import PageWrapper from '@/components/PageWrapper/PageWrapper';
-
+import { SystemRoutes } from '@/modules/routing/routing.types';
 interface EmergencyRequest {
   id: string;
   type: string;
@@ -119,7 +119,7 @@ const Dashboard = () => {
   };
 
   const handleEventClick = (eventId: string) => {
-    navigate(`/events/${eventId}`);
+      navigate(`${SystemRoutes.Events}/${eventId}`);
   };
 
   const getStatusBadgeClass = (status: string) => {
@@ -223,7 +223,7 @@ const Dashboard = () => {
               <p className={styles.actionText}>
                 Request assistance immediately with your current location or provide specific details.
               </p>
-              <Link to="/request-help" className={styles.actionButton}>
+              <Link to={SystemRoutes.RequestHelp} className={styles.actionButton}>
                 <AlertTriangle size={18} />
                 Request Help
               </Link>
@@ -295,7 +295,7 @@ const Dashboard = () => {
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Events Near You</h2>
                 <div className="flex items-center gap-2">
-                  <Link to="/create-event" className="text-sm font-medium text-accent hover:underline">
+                  <Link to={SystemRoutes.CreateEvent} className="text-sm font-medium text-accent hover:underline">
                     Create Event
                   </Link>
                   <button className={styles.viewAllButton}>View All</button>
@@ -355,7 +355,7 @@ const Dashboard = () => {
                   <MapPin size={32} />
                   <h3>No Nearby Events</h3>
                   <p>There are no community events near you right now.</p>
-                  <Link to="/create-event" className={styles.createEventButton}>
+                  <Link to={SystemRoutes.CreateEvent} className={styles.createEventButton}>
                     Create an Event
                   </Link>
                 </div>

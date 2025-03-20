@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Upload, FilmIcon } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/useToast';
 import styles from './MediaUpload.module.css';
 import classNames from 'classnames';
 
@@ -13,14 +13,14 @@ interface MediaUploadProps {
   previewClassName?: string;
 }
 
-const MediaUpload: React.FC<MediaUploadProps> = ({ 
+function MediaUpload({ 
   maxFiles = 5, 
   onChange, 
   value = [],
   showPreview = true,
   className = '',
   previewClassName = ''
-}) => {
+}: MediaUploadProps) {
   const { toast } = useToast();
   const [dragActive, setDragActive] = useState(false);
   
@@ -94,18 +94,16 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
                 />
               )}
               {isVideo(file) && (
-                <div className="flex flex-col items-center justify-center h-full p-2">
+                <div>
                   <FilmIcon className="w-10 h-10 text-gray-500 mb-1" />
-                  <span className="text-xs text-center text-gray-700 truncate w-full">
+                  <span>
                     {file.name}
                   </span>
                 </div>
               )}
               <button
                 type="button"
-                onClick={() => removeFile(index)}
-                className="absolute top-1 right-1 bg-gray-800 bg-opacity-70 rounded-full p-1 text-white hover:bg-opacity-100 transition-opacity"
-              >
+                onClick={() => removeFile(index)}>
                 <X size={16} />
               </button>
             </div>

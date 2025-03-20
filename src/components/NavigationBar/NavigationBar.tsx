@@ -1,17 +1,32 @@
-
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, LayoutDashboard, HelpCircle, LogIn, UserPlus, User, Settings, LogOut } from 'lucide-react';
+import {useState, useEffect} from 'react';
+import {Link, useLocation} from 'react-router-dom';
+import {
+  Menu,
+  X,
+  Home,
+  LayoutDashboard,
+  HelpCircle,
+  LogIn,
+  UserPlus,
+  User,
+  Settings,
+  LogOut,
+} from 'lucide-react';
 import styles from './NavigationBar.module.css';
 import UserSubmenu from '../UserSubMenu/UserSubmenu';
-import { useIsMobile } from '../../hooks/use-mobile';
+import {useIsMobile} from '../../hooks/useIsMobile';
 import useUser from '@/hooks/useUser';
+import {SystemRoutes} from '@/modules/routing/routing.types';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import useLanguage from '@/hooks/useLanguage';
+import classNames from 'classnames';
 
-const NavigationBar: React.FC = () => {
+function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
+  const {language, setLanguage} = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,17 +47,18 @@ const NavigationBar: React.FC = () => {
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <div className={styles.logoContainer}>
-          <Link to="/" className={styles.logo}>
-            <span>Kutoa</span>
+          <Link to={SystemRoutes.Home} className={styles.logo}>
+            <img src="/icons/logo.png" alt="Kutoa Logo" className={styles.logoImage} />
           </Link>
+          <LanguageSelector onLanguageChange={setLanguage} currentLanguage={language} />
         </div>
 
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
-          <ul className={styles.navList}>
+          <ul className={classNames(styles.navList, {[styles.rtl]: !language.isRTL})}>
             <li>
-              <Link 
-                to="/" 
-                className={`${styles.navLink} ${location.pathname === '/' ? styles.active : ''}`}
+              <Link
+                to={SystemRoutes.Home}
+                className={`${styles.navLink} ${location.pathname === SystemRoutes.Home ? styles.active : ''}`}
               >
                 {isMobile && <Home size={20} className={styles.navIcon} />}
                 <span>Home</span>
@@ -51,18 +67,18 @@ const NavigationBar: React.FC = () => {
             {user ? (
               <>
                 <li>
-                  <Link 
-                    to="/dashboard" 
-                    className={`${styles.navLink} ${location.pathname === '/dashboard' ? styles.active : ''}`}
+                  <Link
+                    to={SystemRoutes.Dashboard}
+                    className={`${styles.navLink} ${location.pathname === SystemRoutes.Dashboard ? styles.active : ''}`}
                   >
                     {isMobile && <LayoutDashboard size={20} className={styles.navIcon} />}
                     <span>Dashboard</span>
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    to="/request-help" 
-                    className={`${styles.navLink} ${location.pathname === '/request-help' ? styles.active : ''}`}
+                  <Link
+                    to={SystemRoutes.RequestHelp}
+                    className={`${styles.navLink} ${location.pathname === SystemRoutes.RequestHelp ? styles.active : ''}`}
                   >
                     {isMobile && <HelpCircle size={20} className={styles.navIcon} />}
                     <span>Request Help</span>
@@ -71,18 +87,18 @@ const NavigationBar: React.FC = () => {
                 {isMobile && (
                   <>
                     <li>
-                      <Link 
-                        to="/profile" 
-                        className={`${styles.navLink} ${location.pathname === '/profile' ? styles.active : ''}`}
+                      <Link
+                        to={SystemRoutes.Profile}
+                        className={`${styles.navLink} ${location.pathname === SystemRoutes.Profile ? styles.active : ''}`}
                       >
                         <User size={20} className={styles.navIcon} />
                         <span>Profile</span>
                       </Link>
                     </li>
                     <li>
-                      <Link 
-                        to="/settings" 
-                        className={`${styles.navLink} ${location.pathname === '/settings' ? styles.active : ''}`}
+                      <Link
+                        to={SystemRoutes.Settings}
+                        className={`${styles.navLink} ${location.pathname === SystemRoutes.Settings ? styles.active : ''}`}
                       >
                         <Settings size={20} className={styles.navIcon} />
                         <span>Settings</span>
@@ -100,18 +116,18 @@ const NavigationBar: React.FC = () => {
             ) : (
               <>
                 <li>
-                  <Link 
-                    to="/login" 
-                    className={`${styles.navLink} ${location.pathname === '/login' ? styles.active : ''}`}
+                  <Link
+                    to={SystemRoutes.Login}
+                    className={`${styles.navLink} ${location.pathname === SystemRoutes.Login ? styles.active : ''}`}
                   >
                     {isMobile && <LogIn size={20} className={styles.navIcon} />}
                     <span>Login</span>
                   </Link>
                 </li>
                 <li>
-                  <Link 
-                    to="/signup" 
-                    className={`${styles.navLink} ${location.pathname === '/signup' ? styles.active : ''}`}
+                  <Link
+                    to={SystemRoutes.Signup}
+                    className={`${styles.navLink} ${location.pathname === SystemRoutes.Signup ? styles.active : ''}`}
                   >
                     {isMobile && <UserPlus size={20} className={styles.navIcon} />}
                     <span>Sign Up</span>
@@ -128,7 +144,7 @@ const NavigationBar: React.FC = () => {
           </div>
         )}
 
-        <button 
+        <button
           className={styles.menuToggle}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
@@ -138,6 +154,6 @@ const NavigationBar: React.FC = () => {
       </div>
     </header>
   );
-};
+}
 
 export default NavigationBar;

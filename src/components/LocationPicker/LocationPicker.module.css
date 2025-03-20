@@ -119,14 +119,6 @@
   cursor: not-allowed;
 }
 
-.error {
-  padding: var(--space-3);
-  background-color: rgba(255, 59, 48, 0.1);
-  border-radius: var(--radius-md);
-  color: var(--color-error);
-  font-size: 0.875rem;
-}
-
 .selectedLocation {
   display: flex;
   align-items: center;

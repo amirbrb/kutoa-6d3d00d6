@@ -1,3 +1,4 @@
+
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Login from './pages/Auth/Login';
@@ -9,6 +10,7 @@ import NotFound from './pages/NotFound/NotFound';
 import Index from './pages/Index/Index';
 import EventDetails from './pages/EventDetails/EventDetails';
 import CreateEvent from './pages/CreateEvent/CreateEvent';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 import './App.css';
 import { SystemRoutes } from './modules/routing/routing.types';
 
@@ -39,6 +41,7 @@ function App() {
         <Route path={SystemRoutes.Profile} element={<UserProfile />} />
         <Route path={SystemRoutes.Events} element={<EventDetails />} />
         <Route path={SystemRoutes.CreateEvent} element={<CreateEvent />} />
+        <Route path={SystemRoutes.ChangePassword} element={<ChangePassword />} />
         <Route path={SystemRoutes.NotFound} element={<NotFound />} />
       </Routes>
     </BrowserRouter>

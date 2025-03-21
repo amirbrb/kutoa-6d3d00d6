@@ -1,3 +1,4 @@
+
 export interface SystemPhrases {
   menus: {
     home: string;
@@ -8,5 +9,6 @@ export interface SystemPhrases {
     logout: string;
     login: string;
     signup: string;
+    changePassword: string;
   };
 }

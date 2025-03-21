@@ -1,3 +1,4 @@
+
 {
   "menus": {
     "home": "Home",
@@ -7,6 +8,7 @@
     "settings": "Settings",
     "logout": "Logout",
     "login": "Login",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "changePassword": "Change Password"
   }
 }

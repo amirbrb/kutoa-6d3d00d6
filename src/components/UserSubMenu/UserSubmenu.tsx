@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { User, Settings, LogOut } from 'lucide-react';
+import { User, Settings, LogOut, KeyRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
@@ -14,6 +14,7 @@ import { Dialog } from '../ui/dialog';
 import UserProfileDialog from '../UserProfileDialog/UserProfileDialog';
 import styles from './UserSubmenu.module.css';
 import { SystemRoutes } from '@/modules/routing/routing.types';
+import useSystemPhrase from '@/hooks/useSystemPhrase';
 
 interface UserSubmenuProps {
   onLogout: () => void;
@@ -22,6 +23,7 @@ interface UserSubmenuProps {
 const UserSubmenu: React.FC<UserSubmenuProps> = ({ onLogout }) => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const { translate } = useSystemPhrase();
   
   // Use stored user data or defaults
   const userData = {
@@ -58,16 +60,20 @@ const UserSubmenu: React.FC<UserSubmenuProps> = ({ onLogout }) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate(SystemRoutes.Profile)}>
             <User size={18} />
-            <span>View Profile</span>
+            <span>{translate('menus.profile')}</span>
           </DropdownMenuItem>
           <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate(SystemRoutes.Settings)}>
             <Settings size={18} />
-            <span>Settings</span>
+            <span>{translate('menus.settings')}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem className={styles.menuItem} onSelect={() => navigate(SystemRoutes.ChangePassword)}>
+            <KeyRound size={18} />
+            <span>{translate('menus.changePassword')}</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className={styles.menuItem} onSelect={onLogout}>
             <LogOut size={18} />
-            <span>Logout</span>
+            <span>{translate('menus.logout')}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

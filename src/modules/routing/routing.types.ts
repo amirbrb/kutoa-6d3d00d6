@@ -1,3 +1,4 @@
+
 export const SystemRoutes = {
     Home: "/",
     Login: "/login",
@@ -8,7 +9,6 @@ export const SystemRoutes = {
     Events: "/events/:id",
     CreateEvent: "/create-event",
     Settings: "/settings",
+    ChangePassword: "/change-password",
     NotFound: "*",
 } as const;
-
-

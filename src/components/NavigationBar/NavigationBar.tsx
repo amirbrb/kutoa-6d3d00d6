@@ -1,3 +1,4 @@
+
 import {useState, useEffect} from 'react';
 
 import {Link, useLocation} from 'react-router-dom';
@@ -12,6 +13,7 @@ import {
   User,
   Settings,
   LogOut,
+  KeyRound,
 } from 'lucide-react';
 import styles from './NavigationBar.module.css';
 import UserSubmenu from '../UserSubMenu/UserSubmenu';
@@ -85,6 +87,15 @@ function NavigationBar() {
                   >
                     {isMobile && <HelpCircle size={20} className={styles.navIcon} />}
                     <span>{translate('menus.help')}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={SystemRoutes.ChangePassword}
+                    className={`${styles.navLink} ${location.pathname === SystemRoutes.ChangePassword ? styles.active : ''}`}
+                  >
+                    {isMobile && <KeyRound size={20} className={styles.navIcon} />}
+                    <span>{translate('menus.changePassword')}</span>
                   </Link>
                 </li>
                 {isMobile && (

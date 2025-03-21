@@ -1,3 +1,4 @@
+
 {
     "menus": {
         "home": "בית",
@@ -7,6 +8,7 @@
         "settings": "הגדרות",
         "logout": "יציאה",
         "login": "כניסה",
-        "signup": "הצטרפות"
+        "signup": "הצטרפות",
+        "changePassword": "שינוי סיסמה"
   }
 }
